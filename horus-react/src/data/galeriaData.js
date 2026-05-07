@@ -10,7 +10,7 @@ const CAT = {
 function imgs(folder, catKey, count, files) {
   const { cat, label } = CAT[catKey]
   return files.map(f => ({
-    url:   `/galeria/${folder}/${f}`,
+    url:   `${import.meta.env.BASE_URL}galeria/${folder}/${f}`,
     cat,
     label,
     title: `${label} — ${f.replace(/\.[^.]+$/, '').replace(/-/g, ' ')}`,
