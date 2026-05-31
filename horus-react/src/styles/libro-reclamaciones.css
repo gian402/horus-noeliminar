@@ -492,6 +492,9 @@
 .lr-exito {
   padding: 64px 32px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .lr-exito-icon {
   font-size: 3.5rem;
