@@ -90,7 +90,6 @@ export default function Home() {
         </div>
 
         <div className="ix-controls">
-          <button className="ix-arrow" onClick={prev}><i className="fas fa-chevron-left" /></button>
           <div className="ix-dots">
             {SLIDES.map((_, i) => (
               <button
@@ -100,7 +99,6 @@ export default function Home() {
               />
             ))}
           </div>
-          <button className="ix-arrow" onClick={next}><i className="fas fa-chevron-right" /></button>
         </div>
 
         <div className="ix-metrics">

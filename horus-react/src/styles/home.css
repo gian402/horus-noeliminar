@@ -6,7 +6,7 @@
   min-height: 640px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
   overflow: hidden;
 }
 
@@ -41,10 +41,15 @@
 .ix-hero-body {
   position: relative;
   z-index: 2;
-  padding-bottom: 140px;
-  padding-top: calc(var(--nav-h) + 80px);
-  max-width: 720px;
+  padding-top: calc(var(--nav-h) + 20px);
+  padding-bottom: 100px;
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
+
+.ix-btns { justify-content: center; }
 
 .ix-tag {
   display: inline-flex;
@@ -135,8 +140,9 @@
 
 .ix-controls {
   position: absolute;
-  bottom: 80px;
-  right: 40px;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 3;
   display: flex;
   align-items: center;
@@ -845,12 +851,17 @@
   flex-wrap: wrap;
 }
 
+@media (min-width: 1440px) {
+  .ix-hero-body { max-width: 1000px; }
+  .ix-title { font-size: clamp(3rem, 4vw, 4.5rem); }
+}
+
 @media (max-width: 1024px) {
   .ix-services-grid { grid-template-columns: 1fr; }
   .ix-conv-grid { grid-template-columns: repeat(2, 1fr); }
   .ix-why-bento { grid-template-columns: 1fr; }
   .ix-location-grid { grid-template-columns: 1fr; gap: 40px; }
-  .ix-controls { right: 20px; bottom: 72px; }
+  .ix-controls { left: 50%; transform: translateX(-50%); bottom: 90px; }
 }
 
 @media (max-width: 768px) {
@@ -891,7 +902,7 @@
   .ix-cta-btns { justify-content: center; }
   .ix-cta-icon { margin: 0 auto 16px; }
   .ix-services, .ix-convenios, .ix-why, .ix-location { padding: 64px 0; }
-  .ix-controls { right: 16px; bottom: 88px; }
+  .ix-controls { left: 50%; transform: translateX(-50%); bottom: 88px; }
   .ix-arrow { width: 36px; height: 36px; font-size: .75rem; }
 }
 
@@ -1037,7 +1048,7 @@
 @media (max-width: 768px) {
   .ix-hero { min-height: 85vh; }
   .ix-hero-content { max-width: 100%; }
-  .ix-controls { bottom: 100px; right: 16px; }
+  .ix-controls { left: 50%; transform: translateX(-50%); bottom: 100px; }
   .ix-metrics { flex-wrap: wrap; }
   .ix-metric-wrap { flex: 1 1 45%; }
   .ix-msep { display: none; }

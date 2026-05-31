@@ -26,6 +26,7 @@ export default function Contactos() {
     if (!form.email.trim())    e2.email    = 'Ingresa tu correo'
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e2.email = 'Correo inválido'
     if (!form.telefono.trim()) e2.telefono = 'Ingresa tu teléfono'
+    else if (!/^\d{9}$/.test(form.telefono)) e2.telefono = 'El teléfono debe tener exactamente 9 dígitos'
     if (!form.asunto.trim())   e2.asunto   = 'Ingresa el asunto'
     if (!form.mensaje.trim())  e2.mensaje  = 'Escribe tu mensaje'
     if (Object.keys(e2).length) { setErrores(e2); return }
@@ -128,7 +129,7 @@ export default function Contactos() {
                       <label htmlFor="telefono">Teléfono <span>*</span></label>
                       <div className={`ct-input-wrap${errores.telefono ? ' ct-input-err' : ''}`}>
                         <i className="fas fa-phone" />
-                        <input type="tel" id="telefono" name="telefono" value={form.telefono} onChange={handleChange} placeholder="+51 000 000 000" />
+                        <input type="tel" id="telefono" name="telefono" value={form.telefono} onChange={e => { const v = e.target.value.replace(/\D/g, '').slice(0, 9); setForm(p => ({ ...p, telefono: v })); if (errores.telefono) setErrores(p => { const n = { ...p }; delete n.telefono; return n }) }} placeholder="987654321" maxLength={9} />
                       </div>
                       {errores.telefono && <span className="ct-err-msg"><i className="fas fa-exclamation-circle" /> {errores.telefono}</span>}
                     </div>

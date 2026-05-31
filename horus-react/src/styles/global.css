@@ -90,7 +90,7 @@ input, textarea, select { font-family: var(--font); }
 ::-webkit-scrollbar-thumb:hover { background: var(--indigo-lt); }
 
 .container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 24px;
 }
@@ -700,6 +700,7 @@ input, textarea, select { font-family: var(--font); }
   border-radius: var(--radius);
   font-weight: 700;
   letter-spacing: .02em;
+  margin-left: 10px;
 }
 .nav-links > li > a.nav-cta:hover {
   background: var(--gold-lt);
