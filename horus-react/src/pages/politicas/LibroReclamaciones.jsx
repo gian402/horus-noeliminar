@@ -16,8 +16,10 @@ function validarPaso1(f) {
   if (!f.email.trim())      e.email     = 'Ingresa tu correo'
   else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email)) e.email = 'Correo inválido'
   if (!f.telefono.trim())   e.telefono  = 'Ingresa tu teléfono'
+  else if (!/^\d{9}$/.test(f.telefono)) e.telefono = 'El teléfono debe tener 9 dígitos'
   if (!f.tipoDoc)           e.tipoDoc   = 'Selecciona el tipo de documento'
   if (!f.numDoc.trim())     e.numDoc    = 'Ingresa el número de documento'
+  else { const lim = {dni:8,ce:12,pasaporte:12,ruc:11}[f.tipoDoc]; if(lim && f.numDoc.length !== lim) e.numDoc = `El ${f.tipoDoc.toUpperCase()} debe tener ${lim} dígitos` }
   return e
 }
 
@@ -50,6 +52,8 @@ export default function LibroReclamaciones() {
   const [numRec,  setNumRec]  = useState('')
   const [loading, setLoading] = useState(false)
   const [error,   setError]   = useState('')
+  const docLimits = { dni: 8, ce: 12, pasaporte: 12, ruc: 11 }
+  const docLimit = docLimits[form.tipoDoc] || 15
   const chars = form.detalleReclamo.length
 
   useEffect(() => { document.title = 'Libro de Reclamaciones — Horus Group SRL' }, [])
@@ -210,7 +214,7 @@ export default function LibroReclamaciones() {
                         <input type="email" id="email" name="email" value={form.email} onChange={handleChange} placeholder="correo@ejemplo.com" className={errores.email ? 'lr-input-error' : ''} />
                       </Campo>
                       <Campo id="telefono" label="Teléfono" required error={errores.telefono}>
-                        <input type="tel" id="telefono" name="telefono" value={form.telefono} onChange={handleChange} placeholder="987654321" className={errores.telefono ? 'lr-input-error' : ''} />
+                        <input type="tel" id="telefono" name="telefono" value={form.telefono} onChange={e => { const v = e.target.value.replace(/\D/g,'').slice(0,9); setForm(p=>({...p,telefono:v})); if(errores.telefono) setErrores(p=>{const n={...p};delete n.telefono;return n}) }} placeholder="987654321" maxLength={9} className={errores.telefono ? 'lr-input-error' : ''} />
                       </Campo>
                       <Campo id="tipoDoc" label="Tipo de Documento" required error={errores.tipoDoc}>
                         <select id="tipoDoc" name="tipoDoc" value={form.tipoDoc} onChange={handleChange} className={errores.tipoDoc ? 'lr-input-error' : ''}>
@@ -222,7 +226,7 @@ export default function LibroReclamaciones() {
                         </select>
                       </Campo>
                       <Campo id="numDoc" label="Número de Documento" required error={errores.numDoc}>
-                        <input type="text" id="numDoc" name="numDoc" value={form.numDoc} onChange={handleChange} placeholder="Ej: 12345678" maxLength={15} className={errores.numDoc ? 'lr-input-error' : ''} />
+                        <input type="text" id="numDoc" name="numDoc" value={form.numDoc} onChange={e => { const v = e.target.value.replace(/\D/g,'').slice(0, docLimit); setForm(p=>({...p,numDoc:v})); if(errores.numDoc) setErrores(p=>{const n={...p};delete n.numDoc;return n}) }} placeholder={`Ej: ${'0'.repeat(docLimit)}`} maxLength={docLimit} className={errores.numDoc ? 'lr-input-error' : ''} />
                       </Campo>
                       <Campo id="direccion" label="Dirección" full>
                         <input type="text" id="direccion" name="direccion" value={form.direccion} onChange={handleChange} placeholder="Calle, número, distrito, ciudad" />
